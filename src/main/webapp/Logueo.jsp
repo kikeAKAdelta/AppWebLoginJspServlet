@@ -12,6 +12,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Bienvenido!! Por Favor Ingresa a Nuestro sistema</h1>
+        
+        <form name="form" action="ProcesoUsuario" method="POST">
+            
+            <label>Usuario:</label>
+            <input type="text" name="usuario" id="usuario" placeholder="Introduce tu usuario..." /><br><br>
+            
+            <label>Contraseña:</label>
+            <input type="password" name="usuario" id="usuario" placeholder="Introduce tu contraseña..." /><br><br>
+            
+            <input type="submit" value="Registrar" name="btnAceptar" />
+        </form>
+        
+        
     </body>
 </html>
