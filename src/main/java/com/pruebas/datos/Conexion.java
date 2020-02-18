@@ -33,9 +33,13 @@ public class Conexion {
             
             url = "jdbc:mysql//"+servidor+"/"+database;
             
+            System.out.println(url);
+            
             conexion = DriverManager.getConnection(url,usuarioMariaDb,passMariaDb);
             
-            
+            if (conexion==null) {
+                System.out.println("conexion vacia");
+            }
            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

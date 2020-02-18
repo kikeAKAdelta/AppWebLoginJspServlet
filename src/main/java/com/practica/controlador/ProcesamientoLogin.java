@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.pruebas.datos.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -60,18 +63,47 @@ public class ProcesamientoLogin extends HttpServlet {
             usuario = request.getParameter("usuario");
             password = request.getParameter("pass");
             
-            cn=new Conexion("proyecto_jsp", "localhost:3306", "root", "");
-            
-            
-            ResultSet rs= consultas.obtenerUsuario(cn.getConexion(),usuario, password);
-            
             try {
-                while (rs.absolute(1)) {
-                    out.println("<p>Bienvenido!! "+rs.getInt(1)+"</p>");
-                }
-            } catch (SQLException ex) {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ProcesamientoLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            try{
+            Connection miConexion= DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp","root","");
+            
+            PreparedStatement consultaPreparada= miConexion.prepareStatement("SELECT * FROM usuarios where"
+                    + " Usuario=? AND Contrasena=?");
+            
+            consultaPreparada.setString(1, usuario);
+            consultaPreparada.setString(2, password);
+            
+            ResultSet rs= consultaPreparada.executeQuery();
+            
+            if(rs.absolute(1)) {
+                    out.println("Usuario autorizado");
+                }else{
+                out.println("Usuario no autorizado");
+            }
+            
+            out.println("Insertado con exito");
+            }catch(Exception e){
+                out.println("Ha ocurrido un error"+e    );
+            
+        }
+            
+//            cn=new Conexion("proyecto_jsp", "localhost:3306", "root", "");
+//            
+//            
+//            ResultSet rs= consultas.obtenerUsuario(cn.getConexion(),usuario, password);
+//            
+//            try {
+//                while (rs.absolute(1)) {
+//                    out.println("<p>Bienvenido!! "+rs.getInt(1)+"</p>");
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(ProcesamientoLogin.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             
             
             

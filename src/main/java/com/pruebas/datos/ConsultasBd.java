@@ -30,10 +30,12 @@ public class ConsultasBd {
         try {
             PreparedStatement consultaPreparada = conexion.prepareStatement(consulta);
             
+            
+            
             consultaPreparada.setString(1, usuario);
             consultaPreparada.setString(2, password);
             
-            ResultSet rs= consultaPreparada.executeQuery();
+            rs= consultaPreparada.executeQuery();
             
             
             

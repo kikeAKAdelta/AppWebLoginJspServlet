@@ -14,7 +14,7 @@
     <body>
         <h1>Bienvenido!! Por Favor Ingresa a Nuestro sistema</h1>
         
-        <form name="form" action="ProcesoUsuario" method="POST">
+        <form name="form" action="ProcesamientoLogin" method="POST">
             
             <label>Usuario:</label>
             <input type="text" name="usuario" id="usuario" placeholder="Introduce tu usuario..." /><br><br>
