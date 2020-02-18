@@ -20,7 +20,7 @@
             <input type="text" name="usuario" id="usuario" placeholder="Introduce tu usuario..." /><br><br>
             
             <label>Contraseña:</label>
-            <input type="password" name="usuario" id="usuario" placeholder="Introduce tu contraseña..." /><br><br>
+            <input type="password" name="pass" id="pass" placeholder="Introduce tu contraseña..." /><br><br>
             
             <input type="submit" value="Registrar" name="btnAceptar" />
         </form>
