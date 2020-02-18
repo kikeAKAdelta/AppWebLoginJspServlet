@@ -5,6 +5,8 @@
  */
 package com.practica.controlador;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.pruebas.datos.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +29,8 @@ public class ProcesamientoLogin extends HttpServlet {
     
     private String usuario;
     private String password;
+    private Conexion cn = null;
+    private ConsultasBd consultas=null;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,6 +59,23 @@ public class ProcesamientoLogin extends HttpServlet {
             
             usuario = request.getParameter("usuario");
             password = request.getParameter("pass");
+            
+            cn=new Conexion("proyecto_jsp", "localhost:3306", "root", "");
+            
+            
+            ResultSet rs= consultas.obtenerUsuario(cn.getConexion(),usuario, password);
+            
+            try {
+                while (rs.absolute(1)) {
+                    out.println("<p>Bienvenido!! "+rs.getInt(1)+"</p>");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProcesamientoLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
+            
             
             
         }
