@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Logueo
-    Created on : 02-17-2020, 02:48:25 PM
+    Document   : Liandola
+    Created on : 02-18-2020, 11:34:58 PM
     Author     : enrique
 --%>
 
@@ -24,7 +24,5 @@
             
             <input type="submit" value="Registrar" name="btnAceptar" />
         </form>
-        
-        
     </body>
 </html>
