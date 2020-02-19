@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -62,6 +63,12 @@ public class ProcesamientoLogin extends HttpServlet {
             
             usuario = request.getParameter("usuario");
             password = request.getParameter("pass");
+            
+            //El objeto RequestDispatcher me sirve para poder redirigir a una pagina
+            
+            RequestDispatcher rd;
+            
+            rd = request.getRequestDispatcher("/Login.jsp");
 
             
             cn=new Conexion("proyecto_jsp", "localhost:3306", "root", "");
@@ -73,7 +80,15 @@ public class ProcesamientoLogin extends HttpServlet {
                 if(rs.absolute(1)) {
                     out.println("Usuario autorizado");
                 }else{
+                    
+                request.setAttribute("usuarioNoAutorizado", "El usuario introducido no existe");
+                
                 out.println("Usuario no autorizado");
+                rd.forward(request, response);
+                
+                
+                
+                
             }
             } catch (SQLException ex) {
                 Logger.getLogger(ProcesamientoLogin.class.getName()).log(Level.SEVERE, null, ex);

@@ -24,5 +24,11 @@
             
             <input type="submit" value="Registrar" name="btnAceptar" />
         </form>
+        
+        ${usuarioNoAutorizado}
+        
+        
+        
+        
     </body>
 </html>
