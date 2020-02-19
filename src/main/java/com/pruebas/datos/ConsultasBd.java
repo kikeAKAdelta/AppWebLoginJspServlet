@@ -30,13 +30,12 @@ public class ConsultasBd {
         try {
             PreparedStatement consultaPreparada = conexion.prepareStatement(consulta);
             
-            
-            
             consultaPreparada.setString(1, usuario);
             consultaPreparada.setString(2, password);
             
             rs= consultaPreparada.executeQuery();
             
+            return rs;
             
             
         } catch (SQLException ex) {

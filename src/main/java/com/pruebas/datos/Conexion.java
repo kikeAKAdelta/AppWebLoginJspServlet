@@ -19,7 +19,7 @@ public class Conexion {
     
     private String url="";
     private String servidor="";
-    private Connection conexion = null;
+    private Connection conexion=null;
     
     
     public Conexion(){}
@@ -31,16 +31,10 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             
-            url = "jdbc:mysql//"+servidor+"/"+database;
-            
-            System.out.println(url);
+            url = "jdbc:mysql://"+servidor+"/"+database;
             
             conexion = DriverManager.getConnection(url,usuarioMariaDb,passMariaDb);
-            
-            if (conexion==null) {
-                System.out.println("conexion vacia");
-            }
-           
+   
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
