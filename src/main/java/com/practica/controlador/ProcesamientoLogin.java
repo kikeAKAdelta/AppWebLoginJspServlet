@@ -7,6 +7,7 @@ package com.practica.controlador;
 
 
 
+import com.model.UsuarioModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -49,17 +50,6 @@ public class ProcesamientoLogin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProcesamientoLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProcesamientoLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            
             
             usuario = request.getParameter("usuario");
             password = request.getParameter("pass");
@@ -68,26 +58,38 @@ public class ProcesamientoLogin extends HttpServlet {
             
             RequestDispatcher rd;
             
-            rd = request.getRequestDispatcher("/Login.jsp");
+            
 
             
             cn=new Conexion("proyecto_jsp", "localhost:3306", "root", "");
+            //credenciales: erqa   contra: kike1234
+
             
             consultas = new ConsultasBd();
             ResultSet rs= consultas.obtenerUsuario(cn.getConexion(),usuario, password);
             
             try {
+                
+                
+                //si el usuario existe
                 if(rs.absolute(1)) {
-                    out.println("Usuario autorizado");
-                }else{
+                    UsuarioModel usuarioModel = new UsuarioModel();
+                    
+                    usuarioModel.setNombre(rs.getString("Nombre"));
+                    usuarioModel.setApellido(rs.getString("Apellido"));
+                    
+                    request.setAttribute("usuarioModel",usuarioModel);  //enviamos el bean
+                    rd = request.getRequestDispatcher("Home.jsp");  //establecemos ruta de envio
+                    rd.forward(request, response);  //reenviamos a la ruta establecida
+                    
+                }else{  //si no existe el usuario
+                    
+                rd = request.getRequestDispatcher("Login.jsp");
                     
                 request.setAttribute("usuarioNoAutorizado", "El usuario introducido no existe");
                 
                 out.println("Usuario no autorizado");
                 rd.forward(request, response);
-                
-                
-                
                 
             }
             } catch (SQLException ex) {
